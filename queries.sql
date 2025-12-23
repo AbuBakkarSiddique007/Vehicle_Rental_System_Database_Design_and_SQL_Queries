@@ -9,7 +9,8 @@ SELECT
 FROM
     bookings
     INNER JOIN users ON bookings.user_id = users.user_id
-    INNER JOIN vehicles ON bookings.vehicle_id = vehicles.vehicle_id;
+    INNER JOIN vehicles ON bookings.vehicle_id = vehicles.vehicle_id
+ORDER BY bookings.booking_id;
 
 
 
@@ -37,7 +38,13 @@ WHERE
 
 -- Query 3: WHERE
 SELECT
-    *
+    vehicle_id,
+    name,
+    type,
+    model,
+    registration_number,
+    rental_price,
+    status
 FROM
     vehicles
 WHERE
@@ -48,12 +55,14 @@ WHERE
 
 -- Query 4: GROUP BY and HAVING
 SELECT
+    vehicles.vehicle_id,
     vehicles.name AS vehicle_name,
     COUNT(bookings.booking_id) AS total_bookings
 FROM
     vehicles
     INNER JOIN bookings ON vehicles.vehicle_id = bookings.vehicle_id
 GROUP BY
+    vehicles.vehicle_id,
     vehicles.name
 HAVING
     COUNT(bookings.booking_id) > 2;
